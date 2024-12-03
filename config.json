@@ -1,14 +1,10 @@
 {
 	"mailhook": [
 		{
-			"email": "test@yourdomain.com",
-			"webhook": "https://your-webhook.com/endpoint",
-			"forwardAttachments": true
-		},
-		{
-			"email": "no-attachments@yourdomain.com",
-			"webhook": "https://your-webhook.com/endpoint2",
-			"forwardAttachments": false
+			"email": "notifications@yourdomain.com",
+			"webhook": "https://your-api.com/webhook",
+			"forwardAttachments": true,
+			"method": "POST"
 		}
 	]
 }
