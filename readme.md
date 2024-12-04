@@ -108,7 +108,23 @@ Mailhook sends the following JSON payload to your webhook:
 - Process incoming emails in your applications
 - Create email-to-webhook bridges
 
-## Development
+## 1. DNS Configuration
+
+First, you need to configure your domain's DNS records to handle email properly. You'll need to add these records:
+
+```
+# MX Record - Tells email servers where to deliver mail
+mailhook.app.  IN  MX  10  mail.mailhook.app.
+
+# A Record - Points the mail subdomain to your server IP
+mail.mailhook.app.  IN  A  YOUR_SERVER_IP
+
+# Optional but recommended:
+# SPF Record - Helps prevent email spoofing
+mailhook.app.  IN  TXT  "v=spf1 mx ~all"
+```
+
+## 2. Development
 
 ```bash
 # Clone the repository
@@ -124,7 +140,7 @@ npm run dev
 npm run build
 ```
 
-## Troubleshooting
+## 3. Troubleshooting
 
 ### Common Issues
 
@@ -132,6 +148,16 @@ npm run build
    - Verify AWS credentials
    - Ensure S3 bucket has proper permissions
    - Check `forwardAttachments` is enabled
+
+2. **Port 25 blocked by cloud provider**
+   - Many cloud providers block port 25 by default
+   - Contact support to unblock it
+   - Alternative: Use port 2525 and configure your DNS accordingly
+
+3. **Email not received**
+   - Check DNS propagation (`dig MX mailhook.app`)
+   - Verify firewall settings
+   - Check service logs
 
 ## Future Improvements
 
